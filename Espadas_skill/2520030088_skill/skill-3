@@ -1,1 +1,45 @@
 
+#include<stdio.h>
+#include<unitd.h>
+#include<stdlib.h>
+#include<string.h>
+
+int main() {
+	int pid;
+	int fd[2];
+	char msg[] = "hello child!";
+	char buffer[20];
+	
+	if(pipe(fd) == -1) {
+	   perror("fail to create a pipe\n");
+	   exit(0);
+	}
+	
+	if(pipe(fd2) == -1) {
+	   perror("fail to create pipe 2\n");
+	   error(0);
+	   }
+	pid = fork();
+	
+	if(pid<0) {
+	   printf("failure in process creation\n");
+	   exit(o);
+	}
+
+	else if(pid == 0) {
+		printf("i am in child process\n");
+		close(fd1[1]);
+		read(fd1[0], buffer, strlen(msg));
+		read(fd2[1], msg2, strlen(msg2));
+		printf("message from parent:%s", buffer);
+		close(fd1[0])
+		close(fd[1]);
+	} else {
+		printf("I am in parent process\n");
+		close(fd[0]);
+		write(fd[1], msg,strlen(msg));
+		close(fd[1]);
+		wait(NULL);
+		}		
+		return 0;
+		}
