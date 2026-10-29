@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+export XDG_CONFIG_HOME="${WINTOP_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/wintop}"
+export XDG_STATE_HOME="${WINTOP_STATE_HOME:-${XDG_STATE_HOME:-$HOME/.local/state}/wintop}"
+# btop expects XDG_CONFIG_HOME to exist before it creates its own btop folder.
+# Create our private roots on first launch, including explicit user overrides.
+mkdir -p -- "$XDG_CONFIG_HOME" "$XDG_STATE_HOME"
+if [ ! -x "$root/bin/btop" ]; then
+    printf '%s\n' 'Build this checkout first: make -j2' >&2
+    exit 1
+fi
+exec "$root/bin/btop" "$@"
