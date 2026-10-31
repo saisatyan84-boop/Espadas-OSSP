@@ -4,7 +4,26 @@
 
 This repository brings together operating systems practicals, skill exercises, assignments and **Wintop**, a terminal monitor built from btop. Wintop connects a Linux/WSL dashboard to a persistent Windows companion agent so you can inspect your host PC and WSL environment in one place.
 
-## Wintop: Windows and WSL in one terminal
+## Wintop C: separate C11 implementation
+
+The [C version](Project%20folder/reference_clone_C/) contains a C11 terminal client
+and a native C Windows companion agent. It uses ncurses, cJSON, Windows APIs and
+NVIDIA's NVML C interface, with no C++ or .NET build/runtime requirement.
+
+```bash
+cd "Project folder/reference_clone_C"
+make
+./wintop
+```
+
+It provides Windows and WSL telemetry, separate process tables, NVIDIA GPU
+metrics and device inventory. It currently has fewer features than the original:
+CPU/SSD temperatures, fan/motherboard sensors, Bluetooth battery and some btop
+controls are unavailable. See its [setup, controls and limitations](Project%20folder/reference_clone_C/README.md).
+
+The original C++/C# version remains separately available below.
+
+## Original Wintop: Windows and WSL in one terminal
 
 The dashboard keeps Windows and WSL process lists separate and can show:
 
@@ -42,6 +61,8 @@ The Windows agent build may need internet access to restore its .NET packages. F
 | Folder | Contents |
 | --- | --- |
 | [Project folder](Project%20folder/) | Wintop source, project abstract and presentation |
+| [Wintop C](Project%20folder/reference_clone_C/) | C11 terminal client and native C Windows agent |
+| [Original Wintop](Project%20folder/reference_clone/btop/) | btop-based C++ client and C# Windows agent |
 | [Espadas_practical](Espadas_practical/) | Operating systems practical work |
 | [Espadas_skill](Espadas_skill/) | Skill exercises |
 | [ForgeOS](ForgeOS/) | ForgeOS material |

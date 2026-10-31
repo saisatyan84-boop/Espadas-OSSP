@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.16)
+project(wintop VERSION 1.0 LANGUAGES C)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CURSES_NEED_WIDE TRUE)
+find_package(Curses REQUIRED)
+add_executable(wintop src/main.c src/host_ipc.c src/linux_sys.c src/ui.c src/cJSON.c)
+target_compile_definitions(wintop PRIVATE _GNU_SOURCE)
+target_include_directories(wintop PRIVATE include src ${CURSES_INCLUDE_DIRS})
+target_compile_options(wintop PRIVATE -Wall -Wextra)
+target_link_libraries(wintop PRIVATE ${CURSES_LIBRARIES} m)
+# Keep automatic agent discovery relative to bin/wintop.
+set_target_properties(wintop PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
